@@ -167,7 +167,13 @@
                         (settings.disable=='right' && n<0)
                     ){ return; }
 
-                    var theTranslate = 'translate3d(' + parseInt(n, 10) + 'px, 0,0)';
+                    var translatePx = parseInt(n, 10);
+                    if (translatePx === 0) {
+                      var theTranslate = 'none';
+                    } else {
+                      var theTranslate = 'translate3d(' + translatePx + 'px, 0,0)';
+                    }
+
                     settings.element.style[cache.vendor+'Transform'] = theTranslate;
                 }
             },
@@ -253,7 +259,7 @@
                             cache.intentChecked = true;
                         }
 
-                        if ( 
+                        if (
                             (settings.minDragDistance>=Math.abs(thePageX-cache.startDragX)) && // Has user met minimum drag distance?
                             (cache.hasIntent === false)
                         ) {
@@ -405,7 +411,7 @@
         };
         this.expand = function(side){
             var to = win.innerWidth;
-            
+
             if(side==='left'){
                 utils.klass.add(doc.body, 'snapjs-expand-left');
                 utils.klass.remove(doc.body, 'snapjs-expand-right');
